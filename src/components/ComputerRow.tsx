@@ -14,7 +14,7 @@ function ComputerRow({ computer }: Props) {
 			<TableCell className="text-center">{computer.marca}</TableCell>
 			<TableCell className="text-center">{computer.modelo}</TableCell>
 			<TableCell className="text-center">{computer.sala}</TableCell>
-			<TableCell className="text-center">{computer.SSD ? "Sim" : "Não"}</TableCell>
+			<TableCell className="text-center">{computer.SSD == 1 ? "Sim" : "Não"}</TableCell>
 			<TableCell className="space-x-2 text-right">
 				<EditComputer />
 				<DeleteComputer />

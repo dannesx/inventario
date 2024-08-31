@@ -14,9 +14,10 @@ import { Label } from './ui/label'
 import { Input } from './ui/input'
 import { Checkbox } from './ui/checkbox'
 import { FormEvent, useState } from 'react'
-import { createComputador } from '@/controllers/computadores.js'
+import { useComputer } from '@/contexts/ComputerContext'
 
 function NewComputer() {
+	const { newComputer } = useComputer()
 	const [id, setId] = useState(0)
 	const [marca, setMarca] = useState('')
 	const [modelo, setModelo] = useState('')
@@ -28,8 +29,7 @@ function NewComputer() {
 
 		const computer = { id, marca, modelo, sala, SSD }
 
-		const data = await createComputador(computer)
-		console.log(data)
+		newComputer(computer)
 	}
 
 	return (
@@ -102,7 +102,7 @@ function NewComputer() {
 						<Checkbox
 							id="ssd"
 							name="ssd"
-							onChange={e => setSSD(e.target.checked)}
+							onCheckedChange={value => setSSD(value)}
 						/>
 					</div>
 

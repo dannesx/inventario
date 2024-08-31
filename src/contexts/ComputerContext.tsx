@@ -6,10 +6,11 @@ import {
 	useState,
 } from 'react'
 import { Computer } from '@/types/Computer'
-import { getComputadores } from "@/controllers/computadores.js"
+import { getComputadores, createComputador } from '@/controllers/computadores.js'
 
 interface IComputerContext {
 	computers: Computer[]
+	newComputer: (computer: Computer) => void
 }
 
 const ComputerContext = createContext({} as IComputerContext)
@@ -20,19 +21,28 @@ type Props = {
 
 export function ComputerProvider({ children }: Props) {
 	const [computers, setComputers] = useState([] as Computer[])
+	const [refresh, setRefresh] = useState(true)
 
 	useEffect(() => {
 		async function fetchComputers() {
-      const data = await getComputadores()
+			const data = await getComputadores()
 
 			setComputers(data)
-    }
+		}
 
-		fetchComputers()
-	}, [computers])
+		if (refresh) {
+			fetchComputers()
+			setRefresh(false)
+		}
+	}, [refresh])
+
+	async function newComputer(computer: Computer) {
+		await createComputador(computer)
+		setRefresh(true)
+	}
 
 	return (
-		<ComputerContext.Provider value={{ computers }}>
+		<ComputerContext.Provider value={{ computers, newComputer }}>
 			{children}
 		</ComputerContext.Provider>
 	)
