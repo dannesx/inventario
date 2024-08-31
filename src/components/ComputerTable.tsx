@@ -1,7 +1,10 @@
 import ComputerRow from './ComputerRow'
 import { Table, TableBody, TableHead, TableHeader, TableRow } from './ui/table'
+import { useComputer } from '@/contexts/ComputerContext'
 
 function ComputerTable() {
+	const { computers } = useComputer()
+
 	return (
 		<Table>
 			<TableHeader>
@@ -16,11 +19,7 @@ function ComputerTable() {
 			</TableHeader>
 
 			<TableBody>
-				<ComputerRow />
-				<ComputerRow />
-				<ComputerRow />
-				<ComputerRow />
-				<ComputerRow />
+				{computers.map(computer => <ComputerRow computer={computer} key={computer.id}/>)}
 			</TableBody>
 		</Table>
 	)

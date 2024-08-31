@@ -1,15 +1,20 @@
 import { TableCell, TableRow } from './ui/table'
 import DeleteComputer from './DeleteComputer'
 import EditComputer from './EditComputer'
+import { Computer } from '@/types/Computer'
 
-function ComputerRow() {
+type Props = {
+	computer: Computer
+}
+
+function ComputerRow({ computer }: Props) {
 	return (
 		<TableRow>
-			<TableCell className="font-medium">PC101</TableCell>
-			<TableCell className="text-center">Lenovo</TableCell>
-			<TableCell className="text-center">Ideapad 3</TableCell>
-			<TableCell className="text-center">1</TableCell>
-			<TableCell className="text-center">Sim</TableCell>
+			<TableCell className="font-medium">{computer.id}</TableCell>
+			<TableCell className="text-center">{computer.marca}</TableCell>
+			<TableCell className="text-center">{computer.modelo}</TableCell>
+			<TableCell className="text-center">{computer.sala}</TableCell>
+			<TableCell className="text-center">{computer.SSD ? "Sim" : "Não"}</TableCell>
 			<TableCell className="space-x-2 text-right">
 				<EditComputer />
 				<DeleteComputer />
